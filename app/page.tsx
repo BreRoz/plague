@@ -4,7 +4,7 @@ import { useState } from "react";
 
 const locations = [
   { id:"tahoe", name:"South Lake Tahoe", country:"United States", status:"Confirmed case", detail:"One resident tested positive after a likely infected flea bite while camping.", x:"16.7%", y:"28.4%", tone:"confirmed" },
-  { id:"irkutsk", name:"Irkutsk region", country:"Russia", status:"Suspected case", detail:"A laboratory worker’s death is under scrutiny; Russian authorities deny plague was confirmed.", x:"78.9%", y:"20.9%", tone:"suspected" },
+  { id:"irkutsk", name:"Irkutsk region", country:"Russia", status:"Suspected case", detail:"A laboratory worker’s death is under scrutiny; Russian authorities deny plague was confirmed. At least 197 people who may have had contact with her have been placed under medical isolation, including over 100 in hospital wards, according to Kremlin-backed REN TV.", x:"78.9%", y:"20.9%", tone:"suspected" },
 ];
 
 const stories = [
