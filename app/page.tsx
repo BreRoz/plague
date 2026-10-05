@@ -16,7 +16,7 @@ export default function Home() {
   const [active, setActive] = useState(locations[0]);
   const [shared, setShared] = useState(false);
   async function shareTracker() {
-    const data = { title:"Plague Tracker 2026", text:"Follow confirmed and suspected plague reports worldwide.", url:window.location.href };
+    const data = { title:"Plague Map 2026", text:"Follow confirmed and suspected plague reports worldwide.", url:window.location.href };
     try {
       if (navigator.share) await navigator.share(data);
       else { await navigator.clipboard.writeText(window.location.href); setShared(true); window.setTimeout(() => setShared(false), 1800); }
@@ -25,7 +25,7 @@ export default function Home() {
   return (
     <main>
       <header className="site-header">
-        <a className="brand" href="#top" aria-label="Plague Tracker 2026 home"><span className="brand-mark" aria-hidden="true">P26</span><span>Plague Tracker <b>2026</b></span></a>
+        <a className="brand" href="#top" aria-label="Plague Map 2026 home"><span className="brand-mark" aria-hidden="true">P26</span><span>Plague Map <b>2026</b></span></a>
         <button className="share" onClick={shareTracker} type="button"><span aria-hidden="true">↗</span> {shared ? "Link copied" : "Share tracker"}</button>
       </header>
       <section className="hero" id="top">
@@ -52,7 +52,7 @@ export default function Home() {
         <div className="story-list">{stories.map((story,index) => <article className="story" key={story.url}><div className="story-number">0{index+1}</div><div className="story-body"><div className="story-meta"><b>{story.source}</b><span>{story.date}</span></div><h3>{story.title}</h3><p>{story.summary}</p><div className="story-footer"><div className="tags">{story.tags.map(tag => <span key={tag}>{tag}</span>)}</div><a href={story.url} target="_blank" rel="noreferrer">Learn more <span aria-hidden="true">↗</span></a></div></div></article>)}</div>
       </section>
       <aside className="context"><span className="context-icon" aria-hidden="true">i</span><div><h2>Keep this in context</h2><p>Plague is rare and treatable with antibiotics when caught early. This tracker summarizes public reporting and is not a public-health authority.</p></div></aside>
-      <footer><span>Plague Tracker 2026</span><p>Sources are reviewed and added manually.</p><a href="#top">Back to top ↑</a></footer>
+      <footer><span>Plague Map 2026</span><p>Sources are reviewed and added manually.</p><a href="#top">Back to top ↑</a></footer>
     </main>
   );
 }

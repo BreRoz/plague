@@ -3,20 +3,20 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://plaguemap2026.com"),
-  title: "Plague Tracker 2026",
+  title: "Plague Map 2026",
   description: "A clear, source-driven view of confirmed and suspected plague reports worldwide.",
   alternates: { canonical: "/" },
   openGraph: {
-    title: "Plague Tracker 2026",
+    title: "Plague Map 2026",
     description: "Confirmed and suspected plague reports—mapped clearly.",
     url: "/",
-    siteName: "Plague Tracker 2026",
+    siteName: "Plague Map 2026",
     type: "website",
-    images: [{ url: "/og.png", width: 1734, height: 907, alt: "Plague Tracker 2026 world report map" }],
+    images: [{ url: "/og.png", width: 1734, height: 907, alt: "Plague Map 2026 world report map" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Plague Tracker 2026",
+    title: "Plague Map 2026",
     description: "Confirmed and suspected plague reports—mapped clearly.",
     images: ["/og.png"],
   },
