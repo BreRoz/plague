@@ -73,7 +73,7 @@ export default function Home() {
         </div>
       </section>
       <aside className="context"><span className="context-icon" aria-hidden="true">i</span><div><h2>Keep this in context</h2><p>Plague is rare and treatable with antibiotics when caught early. This tracker summarizes public reporting and is not a public-health authority.</p></div></aside>
-      <footer><span>Plague Map 2026</span><nav aria-label="Site information"><a href="/about">About</a><a href="/contact">Contact</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></nav><p>© 2026 Hours &amp; Co.</p><a href="#top">Back to top ↑</a></footer>
+      <footer><span>Plague Map 2026</span><nav aria-label="Site information"><a href="/about">About</a><a href="/contact">Contact</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></nav><p>© 2026 <a href="https://hoursand.co/" target="_blank" rel="noreferrer">Hours &amp; Co.</a></p><a href="#top">Back to top ↑</a></footer>
     </main>
   );
 }
