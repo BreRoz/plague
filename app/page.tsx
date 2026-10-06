@@ -55,8 +55,8 @@ export default function Home() {
         <button className="share" onClick={shareTracker} type="button"><span aria-hidden="true">↗</span> {shared ? "Link copied" : "Share tracker"}</button>
       </header>
       <section className="hero" id="top">
-        <div className="eyebrow"><span className="live-dot" /> Live situation report</div>
-        <h1>To worry or not to worry? Here are the confirmed plague cases.</h1>
+        <div className="eyebrow">Situation report</div>
+        <h1>Concerned about plague? Here’s what’s confirmed.</h1>
         <p className="dek">Officially confirmed and clearly labeled unverified reporting, mapped without speculation. Informational only—not medical advice.</p>
         <div className="stats" aria-label="Current plague report totals">
           <div className="stat stat-deaths"><span>Confirmed deaths</span><strong>0</strong></div>
@@ -92,7 +92,7 @@ export default function Home() {
       <section className="field-guide" aria-labelledby="guide-title">
         <div className="section-head guide-head"><div><span className="kicker">Reader’s field guide</span><h2 id="guide-title">Understand the map</h2></div><p>How we report, what plague is, and practical ways to reduce risk.</p></div>
         <div className="drawers">
-          <details open>
+          <details>
             <summary><span>01</span> How this tracker works <i>+</i></summary>
             <div className="drawer-copy"><p>Plague Map 2026 is a manually maintained record of credible public reporting. We review the source, identify the location described, and classify each report before placing it on the map. A map marker represents a reported event—not a measurement of community-wide transmission.</p><p><b>Confirmed</b> means an identified public-health authority reports a positive diagnostic result. <b>Unverified</b> means credible reporting exists but no confirming notice from WHO, CDC, ECDC, or the relevant national or local health authority has been identified. Counts change only when new sourcing supports a change. Locations are approximate to protect privacy and because reports often identify a city or region rather than an exact address.</p><p>Every numerical claim carries a source and review timestamp. We prioritize WHO, CDC, ECDC, national ministries, and local public-health agencies. News reports may provide context but are never presented as official confirmation. We do not treat social posts, anonymous claims, crowdsourced submissions, or duplicated coverage as confirmed cases.</p></div>
           </details>
