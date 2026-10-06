@@ -51,32 +51,25 @@ export default function Home() {
   return (
     <main>
       <header className="site-header">
-        <a className="brand" href="#top" aria-label="Plague Map 2026 home"><span className="brand-mark" aria-hidden="true">P26</span><span>Plague Map <b>2026</b></span></a>
+        <a className="brand" href="#top" aria-label="Plague Map 2026 home"><span className="brand-mark" aria-hidden="true">&gt;_</span><span>PLAGUE_MAP <b>2026</b></span></a>
         <button className="share" onClick={shareTracker} type="button"><span aria-hidden="true">↗</span> {shared ? "Link copied" : "Share tracker"}</button>
       </header>
+      <div className="system-bar"><span>PUBLIC REPORT ARCHIVE // TERMINAL 026</span><span>CONNECTION ESTABLISHED</span></div>
+      <nav className="terminal-nav" aria-label="Report sections"><a href="#map-title">[01] MAP</a><a href="#reporting-title">[02] EVIDENCE</a><a href="#updates-title">[03] DISPATCHES</a><a href="#guide-title">[04] HELP</a></nav>
       <section className="hero" id="top">
-        <div className="eyebrow">Situation report</div>
-        <h1>Concerned about plague? Here’s what’s confirmed.</h1>
-        <p className="dek">Officially confirmed and clearly labeled unverified reporting, mapped without speculation. Informational only—not medical advice.</p>
+        <div className="eyebrow">C:\PLAGUE\2026&gt; RUN SITUATION_REPORT.EXE<span className="cursor" aria-hidden="true">█</span></div>
+        <h1><span className="hero-prefix">[ ACCESS GRANTED ]</span>PLAGUE<span className="title-secondary">SURVEILLANCE TERMINAL</span></h1>
+        <p className="dek">Public sources. Verified signals. Unresolved reports. Examine what’s confirmed and what remains unknown. Informational only—not medical advice.</p>
         <div className="stats" aria-label="Current plague report totals">
-          <div className="stat stat-deaths"><span>Confirmed deaths</span><strong>0</strong></div>
-          <div className="stat stat-confirmed"><span>Confirmed cases</span><strong>0</strong></div>
-          <div className="stat stat-suspected"><span>Unverified reports</span><strong>1</strong></div>
+          <div className="stat stat-deaths"><span>Confirmed deaths</span><strong>000</strong></div>
+          <div className="stat stat-confirmed"><span>Confirmed cases</span><strong>000</strong></div>
+          <div className="stat stat-suspected"><span>Unverified reports</span><strong>001</strong></div>
         </div>
         <p className="stats-note">Reviewed Oct. 6, 2026, 5:18 PM CT · No officially confirmed cases currently tracked · Russia reports zero plague cases among the deceased worker’s contacts; her cause of death remains unresolved · WHO assesses risk outside Russia as very low (AP)</p>
       </section>
-      <section className="reporting-context" aria-labelledby="reporting-title">
-        <div className="section-head"><div><span className="kicker">Weighing the evidence</span><h2 id="reporting-title">What the reporting tells us</h2></div></div>
-        <p className="reporting-intro">The investigation is unresolved. Here are the concerns and reassuring findings reported so far.</p>
-        <div className="reporting-columns">{reportingColumns.map(column => <article className={`reporting-column ${column.tone}`} key={column.title}>
-          <h3>{column.title}</h3>
-          <ul>{column.items.map(item => <li key={item.title}><h4>{item.title}</h4><p>{item.text}</p><div className="reporting-sources">Sources: {item.sources.map((source, index) => <span key={source}>{index > 0 ? " · " : ""}<a href={reportingSourceUrl(source)} target="_blank" rel="noreferrer">{source === "Associated Press" ? "AP" : source} ↗</a></span>)}</div></li>)}</ul>
-        </article>)}</div>
-        <p className="reporting-note">People under observation are not confirmed cases. Claims about an engineered or antibiotic-resistant strain remain unverified. <a href={stories.find(story => story.source === "Fox News")!.url} target="_blank" rel="noreferrer">Source: Fox News ↗</a></p>
-      </section>
       <section className="map-section" aria-labelledby="map-title">
-        <div className="section-head"><div><span className="kicker">Global overview</span><h2 id="map-title">Case map</h2></div><div className="legend"><span><i className="confirmed-key" /> Confirmed</span><span><i className="suspected-key" /> Unverified</span></div></div>
-        <div className="map-frame">
+        <div className="section-head"><div><span className="kicker">01 / GEOLOCATION.SYS</span><h2 id="map-title">Case map</h2></div><div className="legend"><span><i className="confirmed-key" /> Confirmed</span><span><i className="suspected-key" /> Unverified</span></div></div>
+        <div className="map-frame"><div className="window-bar"><span>WORLD_MAP.SYS</span><span aria-hidden="true">[ − ][ □ ][ × ]</span></div>
           <div className="map-visual">
             <img src="/world-map.svg" alt="World map showing reported plague locations" />
             {locations.map((location) => <button key={location.id} className={`map-pin ${location.tone} ${active.id === location.id ? "active" : ""}`} style={{left:location.x,top:location.y}} onClick={() => setActive(location)} aria-label={`${location.name}: ${location.status}`} type="button"><span /></button>)}
@@ -85,12 +78,21 @@ export default function Home() {
         </div>
         <p className="map-note">Tap a marker for details · Locations are approximate</p>
       </section>
+      <section className="reporting-context" aria-labelledby="reporting-title">
+        <div className="section-head"><div><span className="kicker">02 / EVIDENCE.LOG</span><h2 id="reporting-title">What the reporting tells us</h2></div></div>
+        <p className="reporting-intro">The investigation is unresolved. Here are the concerns and reassuring findings reported so far.</p>
+        <div className="reporting-columns">{reportingColumns.map(column => <article className={`reporting-column ${column.tone}`} key={column.title}>
+          <h3>{column.title}</h3>
+          <ul>{column.items.map(item => <li key={item.title}><h4>{item.title}</h4><p>{item.text}</p><div className="reporting-sources">Sources: {item.sources.map((source, index) => <span key={source}>{index > 0 ? " · " : ""}<a href={reportingSourceUrl(source)} target="_blank" rel="noreferrer">{source === "Associated Press" ? "AP" : source} ↗</a></span>)}</div></li>)}</ul>
+        </article>)}</div>
+        <p className="reporting-note">People under observation are not confirmed cases. Claims about an engineered or antibiotic-resistant strain remain unverified. <a href={stories.find(story => story.source === "Fox News")!.url} target="_blank" rel="noreferrer">Source: Fox News ↗</a></p>
+      </section>
       <section className="updates" aria-labelledby="updates-title">
-        <div className="section-head stories-head"><div><span className="kicker">Source desk</span><h2 id="updates-title">Latest updates</h2></div><span className="last-updated">Last updated Oct. 6, 2026 · 5:18 PM CT</span></div>
+        <div className="section-head stories-head"><div><span className="kicker">03 / INCOMING DISPATCHES</span><h2 id="updates-title">Latest updates</h2></div><span className="last-updated">Last updated Oct. 6, 2026 · 5:18 PM CT</span></div>
         <div className="story-list">{stories.map((story) => <article className="story" key={story.url}><time className="story-date">{story.date}</time><div className="story-body"><div className="story-meta"><b>{story.source}</b><time>Reviewed {story.time}</time></div><h3>{story.title}</h3><p>{story.summary}</p><div className="authority-line">Authority reference: <a href={story.authorityUrl} target="_blank" rel="noreferrer">{story.authority} ↗</a></div><div className="story-footer"><div className="tags">{story.tags.map(tag => <span key={tag}>{tag}</span>)}</div><a href={story.url} target="_blank" rel="noreferrer">Read report <span aria-hidden="true">↗</span></a></div></div></article>)}</div>
       </section>
       <section className="field-guide" aria-labelledby="guide-title">
-        <div className="section-head guide-head"><div><span className="kicker">Reader’s field guide</span><h2 id="guide-title">Understand the map</h2></div><p>How we report, what plague is, and practical ways to reduce risk.</p></div>
+        <div className="section-head guide-head"><div><span className="kicker">04 / README.TXT</span><h2 id="guide-title">Understand the map</h2></div><p>How we report, what plague is, and practical ways to reduce risk.</p></div>
         <div className="drawers">
           <details>
             <summary><span>01</span> How this tracker works <i>+</i></summary>
