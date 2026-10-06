@@ -37,7 +37,7 @@ export default function Home() {
       </header>
       <section className="hero" id="top">
         <div className="eyebrow"><span className="live-dot" /> Live situation report</div>
-        <h1>Should you worry about the plague? Here's what the data shows.</h1>
+        <h1>To worry or not to worry? Here are the confirmed plague cases.</h1>
         <p className="dek">Officially confirmed and clearly labeled unverified reporting, mapped without speculation. Informational only—not medical advice.</p>
         <div className="stats" aria-label="Current plague report totals">
           <div className="stat stat-deaths"><span>Confirmed deaths</span><strong>0</strong></div>
