@@ -19,6 +19,25 @@ const stories = [
   { source:"Axios", date:"Oct. 4, 2026", time:"2:16 PM CT", title:"White House monitors suspected plague case in Russia", summary:"An administration official said the White House was aware of the reports, monitoring the situation, and assessing options. Axios notes that Russian health authorities took precautionary measures but had not confirmed a plague diagnosis.", tags:["White House monitoring", "Suspected case"], url:"https://www.axios.com/2026/10/04/russia-plague-outbreak-white-house-us", authorityUrl:"https://www.cdc.gov/plague/", authority:"CDC plague guidance" },
 ];
 
+const reportingColumns = [
+  { title: "Reasons for concern", tone: "concern", items: [
+    { title: "The cause of death remains unresolved.", text: "An anti-plague institute employee died after developing severe pneumonia; authorities have not confirmed what caused her illness.", sources: ["Reuters", "Associated Press"] },
+    { title: "The investigation prompted substantial precautions.", text: "Reports described 189 people under medical observation and a hospital quarantine. These measures show the incident warranted investigation.", sources: ["NBC News", "CNBC"] },
+    { title: "Important questions remain unanswered.", text: "The available reporting leaves uncertainty about the worker’s diagnosis and any connection to her laboratory work.", sources: ["Reuters", "CNBC"] },
+    { title: "Pneumonic plague can be serious if confirmed.", text: "It can spread between people through respiratory particles and requires rapid treatment.", sources: ["WHO"] },
+  ] },
+  { title: "Reasons for reassurance", tone: "reassurance", items: [
+    { title: "Plague has not been confirmed in this investigation.", text: "The reported death remains a suspected case.", sources: ["Reuters", "Associated Press"] },
+    { title: "Russia reports no plague among the worker’s contacts.", text: "That is reassuring, although Reuters says it is unclear whether the findings rule out plague in the worker herself.", sources: ["Reuters"] },
+    { title: "WHO assesses the risk outside Russia as very low.", text: "AP reports that WHO sees no indication of a situation similar to the COVID-19 pandemic.", sources: ["Associated Press"] },
+    { title: "Plague is treatable.", text: "Antibiotics are effective, and early diagnosis and treatment can save lives.", sources: ["WHO"] },
+  ] },
+];
+
+function reportingSourceUrl(source: string) {
+  return source === "WHO" ? "https://www.who.int/news-room/fact-sheets/detail/plague" : stories.find(story => story.source === source)!.url;
+}
+
 export default function Home() {
   const [active, setActive] = useState(locations[0]);
   const [shared, setShared] = useState(false);
@@ -45,6 +64,15 @@ export default function Home() {
           <div className="stat stat-suspected"><span>Unverified reports</span><strong>1</strong></div>
         </div>
         <p className="stats-note">Reviewed Oct. 6, 2026, 5:18 PM CT · No officially confirmed cases currently tracked · Russia reports zero plague cases among the deceased worker’s contacts; her cause of death remains unresolved · WHO assesses risk outside Russia as very low (AP)</p>
+      </section>
+      <section className="reporting-context" aria-labelledby="reporting-title">
+        <div className="section-head"><div><span className="kicker">Weighing the evidence</span><h2 id="reporting-title">What the reporting tells us</h2></div></div>
+        <p className="reporting-intro">The investigation is unresolved. Here are the concerns and reassuring findings reported so far.</p>
+        <div className="reporting-columns">{reportingColumns.map(column => <article className={`reporting-column ${column.tone}`} key={column.title}>
+          <h3>{column.title}</h3>
+          <ul>{column.items.map(item => <li key={item.title}><h4>{item.title}</h4><p>{item.text}</p><div className="reporting-sources">Sources: {item.sources.map((source, index) => <span key={source}>{index > 0 ? " · " : ""}<a href={reportingSourceUrl(source)} target="_blank" rel="noreferrer">{source === "Associated Press" ? "AP" : source} ↗</a></span>)}</div></li>)}</ul>
+        </article>)}</div>
+        <p className="reporting-note">People under observation are not confirmed cases. Claims about an engineered or antibiotic-resistant strain remain unverified. <a href={stories.find(story => story.source === "Fox News")!.url} target="_blank" rel="noreferrer">Source: Fox News ↗</a></p>
       </section>
       <section className="map-section" aria-labelledby="map-title">
         <div className="section-head"><div><span className="kicker">Global overview</span><h2 id="map-title">Case map</h2></div><div className="legend"><span><i className="confirmed-key" /> Confirmed</span><span><i className="suspected-key" /> Unverified</span></div></div>
