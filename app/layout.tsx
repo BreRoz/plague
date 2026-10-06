@@ -5,11 +5,11 @@ const GA_MEASUREMENT_ID = "G-NPVV24G1MF";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://plaguemap2026.com"),
-  title: "Plague Map 2026",
+  title: "Pneumonic Plague",
   description: "A clear, source-driven view of confirmed and suspected plague reports worldwide.",
   alternates: { canonical: "/" },
   openGraph: {
-    title: "Plague Map 2026",
+    title: "Pneumonic Plague",
     description: "Confirmed and suspected plague reports—mapped clearly.",
     url: "/",
     siteName: "Plague Map 2026",
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Plague Map 2026",
+    title: "Pneumonic Plague",
     description: "Confirmed and suspected plague reports—mapped clearly.",
     images: ["/og.png"],
   },

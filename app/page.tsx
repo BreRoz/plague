@@ -58,14 +58,17 @@ export default function Home() {
       <nav className="terminal-nav" aria-label="Report sections"><a href="#reporting-title">[01] EVIDENCE</a><a href="#map-title">[02] MAP</a><a href="#updates-title">[03] DISPATCHES</a><a href="#guide-title">[04] HELP</a></nav>
       <section className="hero" id="top">
         <div className="eyebrow">C:\PLAGUE\2026&gt; RUN SITUATION_REPORT.EXE<span className="cursor" aria-hidden="true">█</span></div>
-        <h1><span className="hero-prefix">[ ACCESS GRANTED ]</span>PLAGUE<span className="title-secondary">SURVEILLANCE TERMINAL</span></h1>
+        <h1><span className="hero-prefix">[ ACCESS GRANTED ]</span>PNEUMONIC PLAGUE<span className="title-secondary">SURVEILLANCE TERMINAL</span></h1>
         <p className="dek">Public sources. Verified signals. Unresolved reports. Examine what’s confirmed and what remains unknown. Informational only—not medical advice.</p>
-        <div className="stats" aria-label="Current plague report totals">
+        <p className="diagnosis-label">SUSPECTED · NOT CONFIRMED</p>
+        <div className="stats" aria-label="Tracked reports and reported medical observation">
           <div className="stat stat-deaths"><span>Confirmed deaths</span><strong>000</strong></div>
           <div className="stat stat-confirmed"><span>Confirmed cases</span><strong>000</strong></div>
           <div className="stat stat-suspected"><span>Unverified reports</span><strong>001</strong></div>
+          <div className="stat stat-observation"><span>Under observation <small>Reported Oct. 5</small></span><strong>189</strong></div>
         </div>
         <p className="stats-note">Reviewed Oct. 6, 2026, 5:18 PM CT · No officially confirmed cases currently tracked · Russia reports zero plague cases among the deceased worker’s contacts; her cause of death remains unresolved · WHO assesses risk outside Russia as very low (AP)</p>
+        <p className="observation-note">Under observation: 189 people reportedly placed under medical monitoring after possible contact in the Irkutsk investigation. <a href="https://www.cnbc.com/2026/10/05/russia-plague-suspected-case-irkutsk.html" target="_blank" rel="noreferrer">Source: CNBC, Oct. 5, 2026</a>. This is the reported count placed under observation, not a verified current total or a count of infected people.</p>
       </section>
       <section className="reporting-context" aria-labelledby="reporting-title">
         <div className="section-head"><div><span className="kicker">01 / EVIDENCE.LOG</span><h2 id="reporting-title">What the reporting tells us</h2></div></div>
