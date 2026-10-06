@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
+const GA_MEASUREMENT_ID = "G-NPVV24G1MF";
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://plaguemap2026.com"),
   title: "Plague Map 2026",
@@ -22,4 +24,24 @@ export const metadata: Metadata = {
   },
   icons: { icon: "/favicon.svg" },
 };
-export default function RootLayout({children}:Readonly<{children:React.ReactNode}>) { return <html lang="en"><body>{children}</body></html>; }
+export default function RootLayout({children}:Readonly<{children:React.ReactNode}>) {
+  return (
+    <html lang="en">
+      <head>
+        <script
+          async
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', '${GA_MEASUREMENT_ID}');`,
+          }}
+        />
+      </head>
+      <body>{children}</body>
+    </html>
+  );
+}
