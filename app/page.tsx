@@ -3,7 +3,14 @@
 import { useState } from "react";
 
 const locations = [
-  { id:"irkutsk", name:"Irkutsk region", country:"Russia", status:"1 suspected case · 0 confirmed contacts", detail:"A 28-year-old employee of the Irkutsk Anti-Plague Research Institute died after developing severe pneumonia. Russia’s public-health agency says her illness was pneumonia of unknown cause and reported no plague among her contacts. Testing identified two COVID-19 infections and two rhinovirus infections, but no pathogens causing other infectious diseases. The worker’s diagnosis remains unconfirmed. AP reports that WHO assesses risk outside Russia as very low. See the source desk for the latest reporting and separately labeled commentary.", source:"Reuters", sourceUrl:"https://www.reuters.com/business/healthcare-pharmaceuticals/russia-says-no-plague-cases-have-been-detected-among-contacts-deceased-lab-2026-10-06/", updated:"Oct. 6, 2026", x:"78.9%", y:"20.9%", tone:"suspected" },
+  { id:"irkutsk", name:"Irkutsk region", country:"Russia", status:"1 suspected case · 0 confirmed contacts", detail:"A 28-year-old employee of the Irkutsk Anti-Plague Research Institute died after developing severe pneumonia. Russia’s public-health agency says her illness was pneumonia of unknown cause and reported no plague among her contacts. Testing identified two COVID-19 infections and two rhinovirus infections, but no pathogens causing other infectious diseases. The worker’s diagnosis remains unconfirmed. AP reports that WHO assesses risk outside Russia as very low. See the source desk for the latest reporting and separately labeled commentary.", source:"Reuters", sourceUrl:"https://www.reuters.com/business/healthcare-pharmaceuticals/russia-says-no-plague-cases-have-been-detected-among-contacts-deceased-lab-2026-10-06/", updated:"Oct. 6, 2026", x:"78.9%", y:"20.9%", tone:"suspected", metrics: [
+    { label:"Suspected cases", value:"1", note:"Unconfirmed" },
+    { label:"Confirmed plague cases", value:"None reported", note:"No diagnosis confirmed" },
+    { label:"Reported deaths", value:"1", note:"Plague cause unconfirmed" },
+    { label:"Contacts placed under observation", value:"189", note:"Reported Oct. 5 · CNBC" },
+    { label:"Secondary plague cases", value:"None reported", note:"As of Oct. 6 · ECDC" },
+    { label:"Investigation status", value:"Diagnosis unresolved", note:"Suspected pneumonic plague" },
+  ] },
 ];
 
 const stories = [
@@ -86,7 +93,10 @@ export default function Home() {
             <img src="/world-map.svg" alt="World map showing reported plague locations" />
             {locations.map((location) => <button key={location.id} className={`map-pin ${location.tone} ${active.id === location.id ? "active" : ""}`} style={{left:location.x,top:location.y}} onClick={() => setActive(location)} aria-label={`${location.name}: ${location.status}`} type="button"><span /></button>)}
           </div>
-          <div className="map-card" aria-live="polite"><span className={`status ${active.tone}`}>{active.status}</span><h3>{active.name}</h3><small>{active.country}</small><p>{active.detail}</p><div className="card-source"><a href={active.sourceUrl} target="_blank" rel="noreferrer">Source: {active.source} ↗</a><span>Updated {active.updated}</span></div></div>
+          <div className="map-card" aria-live="polite"><span className={`status ${active.tone}`}>{active.status}</span><h3>{active.name}</h3><small>{active.country}</small>
+            <dl className="location-metrics" aria-label={`${active.name} incident data`}>{active.metrics.map(metric => <div key={metric.label}><dt>{metric.label}</dt><dd>{metric.value}<small>{metric.note}</small></dd></div>)}</dl>
+            <p className="incident-note">The suspected case and reported death refer to the same person. Observation does not mean infection; 189 is the reported number placed under monitoring, not a verified current total.</p>
+            <h4 className="incident-story-title">Incident report</h4><p>{active.detail}</p><div className="card-source"><a href={active.sourceUrl} target="_blank" rel="noreferrer">Source: {active.source} ↗</a><a href="https://www.cnbc.com/2026/10/05/russia-plague-suspected-case-irkutsk.html" target="_blank" rel="noreferrer">Observation: CNBC</a><a href="https://www.ecdc.europa.eu/en/news-events/ecdc-closely-monitoring-situation-following-case-pneumonia-unknown-origin-russia" target="_blank" rel="noreferrer">Secondary cases: ECDC</a><span>Evidence reviewed {active.updated} · 5:18 PM CT</span></div></div>
         </div>
         <p className="map-note">Tap a marker for details · Locations are approximate</p>
       </section>
