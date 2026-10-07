@@ -12,7 +12,12 @@ const { d1, r2 } = hostingConfig;
 const isCodexSeatbeltSandbox = process.env.CODEX_SANDBOX === "seatbelt";
 
 const localBindingConfig = {
+  name: "plaguemap2026",
   main: "./worker/index.ts",
+  routes: [
+    { pattern: "plaguemap2026.com", custom_domain: true },
+    { pattern: "www.plaguemap2026.com", custom_domain: true },
+  ],
   compatibility_flags: ["nodejs_compat"],
   d1_databases: d1
     ? [

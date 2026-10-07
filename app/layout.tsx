@@ -30,6 +30,11 @@ export default function RootLayout({children}:Readonly<{children:React.ReactNode
       <head>
         <script
           async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7740708597836782"
+          crossOrigin="anonymous"
+        />
+        <script
+          async
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
         />
         <script
