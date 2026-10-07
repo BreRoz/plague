@@ -15,8 +15,8 @@ const localBindingConfig = {
   name: "plaguemap2026",
   main: "./worker/index.ts",
   routes: [
-    { pattern: "plaguemap2026.com", custom_domain: true },
-    { pattern: "www.plaguemap2026.com", custom_domain: true },
+    { pattern: "plaguemap2026.com/*", zone_name: "plaguemap2026.com" },
+    { pattern: "www.plaguemap2026.com/*", zone_name: "plaguemap2026.com" },
   ],
   compatibility_flags: ["nodejs_compat"],
   d1_databases: d1
