@@ -33,21 +33,23 @@ const stories = [
 
 const reportingColumns = [
   { title: "Reasons for concern", tone: "concern", items: [
-    { title: "The cause of death remains unresolved.", text: "An anti-plague institute employee died after developing severe pneumonia; authorities have not confirmed what caused her illness.", sources: ["Reuters", "Associated Press"] },
-    { title: "The investigation prompted substantial precautions.", text: "Reports described 189 people under medical observation and a hospital quarantine. These measures show the incident warranted investigation.", sources: ["NBC News", "CNBC"] },
-    { title: "Important questions remain unanswered.", text: "The available reporting leaves uncertainty about the worker’s diagnosis and any connection to her laboratory work. WHO is also seeking information about reports of a second employee with unexplained pneumonia; that report is unverified.", sources: ["Reuters", "Forbes"] },
+    { title: "The cause of death remains unresolved.", text: "A 28-year-old anti-plague institute employee was hospitalized Sept. 29 and died Oct. 2 after developing severe pneumonia. Officials describe it as pneumonia of unknown cause and have not confirmed what caused her illness.", sources: ["Spectrum News · AP", "Reuters"] },
+    { title: "The investigation prompted substantial precautions.", text: "Reports described 189 people under medical observation. As of Oct. 7, the hospital where she died remained under quarantine, not admitting or discharging patients, though its outpatient clinic kept operating.", sources: ["CNBC", "Spectrum News · AP"] },
+    { title: "Important questions remain unanswered.", text: "WHO has asked Russia to clarify the cause of the pneumonia and the pathogen that prompted public-health measures, and U.S. officials have urged Russia to share more. WHO is also seeking information about a reported second employee with unexplained pneumonia, and a local outlet reported a second death at an Irkutsk medical facility. Neither report is verified.", sources: ["Spectrum News · AP", "The Hill", "The Independent"] },
     { title: "Pneumonic plague can be serious if confirmed.", text: "It can spread between people through respiratory particles and requires rapid treatment.", sources: ["WHO"] },
   ] },
   { title: "Reasons for reassurance", tone: "reassurance", items: [
-    { title: "Plague has not been confirmed in this investigation.", text: "The reported death remains a suspected case.", sources: ["Reuters", "Associated Press"] },
-    { title: "No plague has been confirmed among contacts.", text: "Russia told WHO it had not registered plague in Irkutsk and reported no dangerous pathogens among contacts. WHO is checking a separate report of a second employee with unexplained pneumonia; it is not confirmed as plague.", sources: ["Reuters", "Associated Press", "Forbes"] },
-    { title: "WHO assesses the risk outside Russia as very low.", text: "AP reports that WHO sees no indication of a situation similar to the COVID-19 pandemic.", sources: ["Associated Press"] },
+    { title: "Plague has not been confirmed in this investigation.", text: "Moscow told WHO no plague case has been registered in the Irkutsk region, and Russia’s public-health agency says testing found no evidence her illness was caused by the pathogens she worked with. The death remains a suspected case.", sources: ["Spectrum News · AP", "Reuters"] },
+    { title: "No plague has been found among contacts.", text: "Russia reported no dangerous infectious-disease pathogens among her contacts. Testing found two COVID-19 and two rhinovirus infections, and no contacts have shown health changes associated with infectious disease.", sources: ["Reuters", "Spectrum News · AP"] },
+    { title: "WHO rates the wider risk as low to very low.", text: "WHO’s initial assessment rates the risk as moderate to low in Irkutsk, low for Russia as a whole, and very low for the WHO European region. AP reports WHO sees no indication of a situation similar to the COVID-19 pandemic.", sources: ["UN News", "Associated Press"] },
     { title: "Plague is treatable.", text: "Antibiotics are effective, and early diagnosis and treatment can save lives.", sources: ["WHO"] },
   ] },
 ];
 
 function reportingSourceUrl(source: string) {
-  return source === "WHO" ? "https://www.who.int/news-room/fact-sheets/detail/plague" : stories.find(story => story.source === source)!.url;
+  if (source === "WHO") return "https://www.who.int/news-room/fact-sheets/detail/plague";
+  if (source === "UN News") return "https://news.un.org/en/story/2026/10/1168533";
+  return stories.find(story => story.source === source)!.url;
 }
 
 export default function Home() {
