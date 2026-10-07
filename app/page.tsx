@@ -73,8 +73,7 @@ export default function Home() {
       <div className="system-bar"><span>PUBLIC REPORT ARCHIVE // TERMINAL 026</span><span>CONNECTION ESTABLISHED</span></div>
       <nav className="terminal-nav" aria-label="Report sections"><a href="#reporting-title">[01] EVIDENCE</a><a href="#map-title">[02] MAP</a><a href="#updates-title">[03] DISPATCHES</a><a href="#guide-title">[04] HELP</a></nav>
       <section className="hero" id="top">
-        <div className="eyebrow">C:\PLAGUE\2026&gt; RUN SITUATION_REPORT.EXE<span className="cursor" aria-hidden="true">█</span></div>
-        <h1><span className="hero-prefix">[ ACCESS GRANTED ]</span>PNEUMONIC PLAGUE<span className="title-secondary">SURVEILLANCE TERMINAL</span></h1>
+        <h1>PNEUMONIC PLAGUE<span className="title-secondary">SURVEILLANCE TERMINAL</span></h1>
         <p className="dek">Public sources. Verified signals. Unresolved reports. Examine what’s confirmed and what remains unknown. Informational only—not medical advice.</p>
         <div className="stats" aria-label="Tracked reports and reported medical observation">
           <div className="stat stat-deaths"><span>Confirmed deaths</span><strong>000</strong></div>
