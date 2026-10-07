@@ -28,7 +28,7 @@ test("server-renders the plague tracker and new article dispatches", async () =>
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
 
   const html = await response.text();
-  assert.match(html, /<title>Pneumonic Plague Tracker: Irkutsk, Russia Case Map<\/title>/i);
+  assert.match(html, /<title>Plague Map 2026 — Russia Plague Investigation Tracker<\/title>/i);
   assert.match(html, /PNEUMONIC PLAGUE/);
   assert.match(html, /WHO investigates reports of a second possible case/);
   assert.match(html, /Trump says Putin call is scheduled; Kremlin says nothing arranged/);
@@ -48,4 +48,31 @@ test("keeps the additional illness explicitly unverified at one map location", a
   assert.match(html, /no second plague case has been confirmed/i);
   assert.equal((html.match(/class="map-pin /g) ?? []).length, 1);
   assert.doesNotMatch(html, /Your site is taking shape|react-loading-skeleton|codex-preview/);
+});
+
+test("answers the current status in crawlable HTML from one data source", async () => {
+  const response = await render();
+  const html = await response.text();
+  const text = html.replace(/<script[\s\S]*?<\/script>/g, "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ");
+
+  assert.equal((html.match(/<h1[\s>]/g) ?? []).length, 1);
+  assert.match(html, /<h1><span class="title-kicker">Plague Map 2026/);
+  assert.match(html, /<h2 id="situation-title">Current situation<\/h2>/);
+  assert.match(text, /As of Oct\. 7, 2026, no confirmed plague cases have been reported in the Irkutsk region, Russia, investigation/);
+  assert.match(text, /2 unverified illness reports, 1 reported death whose cause has not been confirmed as plague, and 189 people reported as under medical observation/);
+  assert.match(text, /People under observation are not confirmed plague cases\./);
+  assert.match(text, /No confirmed plague outbreak has been established in the sources reviewed by this tracker/);
+  assert.match(text, /not a government agency or an official public-health surveillance system/);
+  assert.match(html, /<dt>Confirmed plague cases<\/dt><dd><span class="readout-value">0<\/span>/);
+  assert.match(html, /<dt>Confirmed plague deaths<\/dt><dd><span class="readout-value">0<\/span>/);
+  assert.match(html, /<time dateTime="2026-10-07">Oct\. 7, 2026<\/time>/i);
+  assert.match(html, /<link rel="canonical" href="https:\/\/plaguemap2026\.com\/?"/);
+
+  const schemas = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map(m => JSON.parse(m[1]));
+  const nodes = schemas.flatMap(schema => schema["@graph"] ?? [schema]);
+  const dataset = nodes.find(node => node["@type"] === "Dataset");
+  assert.ok(dataset, "Dataset JSON-LD present");
+  assert.equal(dataset.variableMeasured.find(v => v.name === "Confirmed plague cases").value, 0);
+  assert.equal(dataset.variableMeasured.find(v => v.name.startsWith("People under medical observation")).value, 189);
+  for (const type of ["WebSite", "WebPage", "Organization", "FAQPage"]) assert.ok(nodes.some(node => node["@type"] === type), `${type} JSON-LD present`);
 });

@@ -1,15 +1,19 @@
 "use client";
 
 import { useState, type ReactNode } from "react";
+import { DISCLAIMER, EVIDENCE_REVIEWED, LAST_UPDATED, OUTBREAK_ANSWER, SITE_URL, SOURCES, STATUS, STATUS_BREAKDOWN, STATUS_HEADLINE, STATUS_SUMMARY, isoDate, type Source } from "./tracker-data";
+
+function noneOr(n: number) { return n === 0 ? "None reported" : String(n); }
+const pad = (n: number) => String(n).padStart(3, "0");
 
 const locations = [
-  { id:"irkutsk", name:"Irkutsk region", country:"Russia", status:"1 reported death · 1 additional illness report unverified", detail:"A 28-year-old employee of the Irkutsk Anti-Plague Research Institute died after developing severe pneumonia. Russia’s public-health agency says her illness was pneumonia of unknown cause and reported no plague among her contacts. Testing of roughly 60% of contacts identified two COVID-19 infections and two rhinovirus infections, but no pathogens causing other infectious diseases. Irkutsk Governor Igor Kobsev says no microorganisms linked to her professional work were detected in her body, and as of Oct. 7 Russia had not confirmed an official cause of death. WHO says it has also requested information about media reports of a second employee with pneumonia of undetermined cause. That additional illness remains unverified; no second plague case has been confirmed. AP reports WHO assessed risk as very low for the European region. See the source desk for the reporting and uncertainty.", source:"Associated Press", sourceUrl:"https://apnews.com/article/5aa82b8bc3d8300c551cd0e1bf91e32c", updated:"Oct. 7, 2026", x:"78.9%", y:"20.9%", tone:"suspected", metrics: [
-    { label:"Reported illnesses under review", value:"2 reports", note:"Second illness unverified" },
-    { label:"Confirmed plague cases", value:"None reported", note:"No diagnosis confirmed" },
-    { label:"Reported deaths", value:"1", note:"Plague cause unconfirmed" },
-    { label:"Contacts placed under observation", value:"189", note:"Reported Oct. 5 · CNBC" },
-    { label:"Confirmed secondary plague cases", value:"None reported", note:"Additional illness report unverified" },
-    { label:"Investigation status", value:"Diagnosis unresolved", note:"Suspected pneumonic plague" },
+  { id:"irkutsk", name:"Irkutsk region", country:"Russia", status:"1 reported death · 1 additional illness report unverified", detail:"A 28-year-old employee of the Irkutsk Anti-Plague Research Institute died after developing severe pneumonia. Russia’s public-health agency says her illness was pneumonia of unknown cause and reported no plague among her contacts. Testing of roughly 60% of contacts identified two COVID-19 infections and two rhinovirus infections, but no pathogens causing other infectious diseases. Irkutsk Governor Igor Kobsev says no microorganisms linked to her professional work were detected in her body, and as of Oct. 7 Russia had not confirmed an official cause of death. WHO says it has also requested information about media reports of a second employee with pneumonia of undetermined cause. That additional illness remains unverified; no second plague case has been confirmed. AP reports WHO assessed risk as very low for the European region. See the source desk for the reporting and uncertainty.", source:SOURCES.ap.name, sourceUrl:SOURCES.ap.url, x:"78.9%", y:"20.9%", tone:"suspected", metrics: [
+    { label:"Reported illnesses under review", value:`${STATUS.unverifiedReports} reports`, note:"Second illness unverified" },
+    { label:"Confirmed plague cases", value:noneOr(STATUS.confirmedCases), note:"No diagnosis confirmed" },
+    { label:"Reported deaths", value:String(STATUS.reportedDeaths), note:"Plague cause unconfirmed" },
+    { label:"Contacts placed under observation", value:String(STATUS.underObservation), note:`Reported ${STATUS.observationReported.short} · ${STATUS.observationReported.source.name}` },
+    { label:"Confirmed secondary plague cases", value:noneOr(STATUS.confirmedSecondaryCases), note:"Additional illness report unverified" },
+    { label:"Investigation status", value:STATUS.investigation, note:STATUS.investigationNote },
   ] },
 ];
 
@@ -49,16 +53,14 @@ const reportingColumns = [
   ] },
 ];
 
-const LAST_UPDATED = { label: "Oct. 7, 2026", iso: "2026-10-07" };
-
 type Faq = { question: string; answer: string; more?: ReactNode };
 
 // `answer` is the direct answer shown first and used in the FAQPage JSON-LD;
 // `more` holds supporting paragraphs and references shown only on the page.
 const faqs: Faq[] = [
-  { question: "Has pneumonic plague been confirmed in Russia?", answer: "No. As of Oct. 7, 2026, plague has not been confirmed in the Irkutsk investigation. Moscow told WHO no plague case has been registered in the Irkutsk region, and Russia has not confirmed an official cause of death for the 28-year-old anti-plague institute employee who died Oct. 2 of pneumonia of unknown cause. This tracker lists it as a suspected case." },
+  { question: "Has pneumonic plague been confirmed in Russia?", answer: `No. As of ${LAST_UPDATED.label}, plague has not been confirmed in the Irkutsk investigation. Moscow told WHO no plague case has been registered in the Irkutsk region, and Russia has not confirmed an official cause of death for the 28-year-old anti-plague institute employee who died Oct. 2 of pneumonia of unknown cause. This tracker lists it as a suspected case.` },
   { question: "Is there a second plague case in Russia?", answer: "Not a confirmed one. WHO has requested information about media reports of a second institute employee with pneumonia of undetermined cause, and a local outlet reported a second death at an Irkutsk medical facility. Neither report has been verified, and no second plague case has been confirmed." },
-  { question: "How many people are under medical observation?", answer: "189 people were reported under medical observation as of Oct. 5. Observation does not mean infection. Russia reported no plague among the deceased worker’s contacts; testing found two COVID-19 and two rhinovirus infections." },
+  { question: "How many people are under medical observation?", answer: `${STATUS.underObservation} people were reported under medical observation as of ${STATUS.observationReported.short}. Observation does not mean infection. Russia reported no plague among the deceased worker’s contacts; testing found two COVID-19 and two rhinovirus infections.` },
   { question: "What is WHO’s risk assessment?", answer: "WHO’s initial assessment rates the risk as moderate to low in Irkutsk, low for Russia as a whole, and very low for the WHO European region. CDC says there is no indication of a broader threat to the United States." },
   { question: "Is pneumonic plague contagious?", answer: "Pneumonic plague affects the lungs and is the form of plague that can spread between people through respiratory particles during prolonged close, direct contact. Experts describe it as far less contagious than COVID-19 or flu. Bubonic plague does not ordinarily spread person to person." },
   { question: "How does plague spread?", answer: "Plague is an infection caused by the bacterium Yersinia pestis, which is carried by some small mammals and their fleas. People are most often infected through the bite of an infected flea. Infection can also follow unprotected contact with infected animals or contaminated tissue.", more: <><p>Bubonic plague commonly affects the lymph nodes. Septicemic plague involves the bloodstream. Pneumonic plague affects the lungs and is the form that can spread between people through respiratory particles during close, direct contact. Bubonic plague does not ordinarily spread person to person.</p><p>Symptoms often begin suddenly and can include fever, chills, weakness, headache, painful swollen lymph nodes, or—when the lungs are involved—cough, chest pain, and difficulty breathing. Plague is treatable with antibiotics, and early medical care matters.</p><div className="source-links">Medical references: <a href="https://www.who.int/news-room/fact-sheets/detail/plague" target="_blank" rel="noreferrer">WHO plague fact sheet ↗</a> <a href="https://www.cdc.gov/plague/" target="_blank" rel="noreferrer">CDC plague guidance ↗</a></div></> },
@@ -68,22 +70,67 @@ const faqs: Faq[] = [
   { question: "Can this tracker be wrong, and how do I send a correction?", answer: "This project is a news and public-information index, not an official surveillance system. Reporting can be delayed, incomplete, corrected, or contradicted as laboratory results and investigations develop. A suspected report may later be confirmed, ruled out, or remain unresolved.", more: <><p>We distinguish publication dates from event dates where the source makes that possible, avoid guessing missing facts, and update labels when better evidence appears. If you find a factual error or a stronger primary source, send it to <a href="mailto:hoursandco.studio@gmail.com">hoursandco.studio@gmail.com</a> with the relevant link.</p></> },
 ];
 
+type StatusRow = { label: string; value: ReactNode; note?: ReactNode; source?: Source };
+
+// The Current Situation readout. Every value comes from STATUS in tracker-data.ts.
+const statusRows: StatusRow[] = [
+  { label: "Status", value: STATUS_HEADLINE, note: `${STATUS.investigation}: ${STATUS.investigationNote.toLowerCase()}` },
+  { label: "Confirmed plague cases", value: STATUS.confirmedCases, note: "No diagnosis confirmed by a health authority", source: SOURCES.spectrumAp },
+  { label: "Confirmed plague deaths", value: STATUS.confirmedDeaths, note: "Official cause of death not confirmed", source: SOURCES.ap },
+  { label: "Suspected plague cases", value: STATUS.suspectedCases, note: "The deceased institute employee; plague not confirmed", source: SOURCES.spectrumAp },
+  { label: "Unverified illness reports", value: STATUS.unverifiedReports, note: "The suspected case plus a reported second illness that WHO is seeking information about", source: SOURCES.forbes },
+  { label: "Reported deaths, cause not confirmed as plague", value: STATUS.reportedDeaths, note: "Same person as the suspected case. A local-media report of a second death is unverified and not counted.", source: SOURCES.ap },
+  { label: "People under medical observation", value: STATUS.underObservation, note: <>Reported <time dateTime={STATUS.observationReported.iso}>{STATUS.observationReported.short}</time>. Not confirmed cases: observation does not mean infection.</>, source: STATUS.observationReported.source },
+  { label: "Location", value: `${STATUS.location}, ${STATUS.country}`, note: "Approximate; regional level" },
+  { label: "Last evidence review", value: <time dateTime={EVIDENCE_REVIEWED.iso}>{EVIDENCE_REVIEWED.label}</time> },
+  { label: "Tracker last updated", value: <time dateTime={LAST_UPDATED.iso}>{LAST_UPDATED.label}</time> },
+];
+
+const ORGANIZATION_ID = "https://hoursand.co/#organization";
+
 const pageSchema = {
   "@context": "https://schema.org",
   "@graph": [
     {
       "@type": "WebPage",
-      "@id": "https://plaguemap2026.com/#webpage",
-      url: "https://plaguemap2026.com/",
-      name: "Pneumonic Plague Tracker: Irkutsk, Russia Case Map",
-      isPartOf: { "@id": "https://plaguemap2026.com/#website" },
+      "@id": `${SITE_URL}/#webpage`,
+      url: `${SITE_URL}/`,
+      name: "Plague Map 2026 — Russia Plague Investigation Tracker",
+      description: `${STATUS_SUMMARY} ${STATUS_BREAKDOWN}`,
+      isPartOf: { "@id": `${SITE_URL}/#website` },
+      publisher: { "@id": ORGANIZATION_ID },
+      mainEntity: { "@id": `${SITE_URL}/#dataset` },
+      primaryImageOfPage: { "@type": "ImageObject", url: `${SITE_URL}/og.png` },
       about: { "@type": "MedicalCondition", name: "Pneumonic plague", alternateName: "Yersinia pestis infection" },
       dateModified: LAST_UPDATED.iso,
       inLanguage: "en",
     },
     {
+      "@type": "Dataset",
+      "@id": `${SITE_URL}/#dataset`,
+      name: "Plague Map 2026: Russia plague investigation tracker",
+      description: `A manually maintained, source-linked record of public reporting on the suspected pneumonic plague investigation in the ${STATUS.location}, ${STATUS.country}. Each figure is classified as confirmed, suspected, unverified, reported, or under observation. ${STATUS_SUMMARY} ${STATUS_BREAKDOWN} ${DISCLAIMER}`,
+      url: `${SITE_URL}/`,
+      creator: { "@id": ORGANIZATION_ID },
+      publisher: { "@id": ORGANIZATION_ID },
+      dateModified: LAST_UPDATED.iso,
+      temporalCoverage: "2026-09-29/..",
+      spatialCoverage: { "@type": "Place", name: `${STATUS.location}, ${STATUS.country}`, containedInPlace: { "@type": "Country", name: STATUS.country } },
+      keywords: ["plague", "pneumonic plague", "Yersinia pestis", "Irkutsk", "Russia", "suspected case", "disease tracker"],
+      isAccessibleForFree: true,
+      inLanguage: "en",
+      variableMeasured: [
+        { "@type": "PropertyValue", name: "Confirmed plague cases", value: STATUS.confirmedCases },
+        { "@type": "PropertyValue", name: "Confirmed plague deaths", value: STATUS.confirmedDeaths },
+        { "@type": "PropertyValue", name: "Suspected plague cases", value: STATUS.suspectedCases },
+        { "@type": "PropertyValue", name: "Unverified illness reports", value: STATUS.unverifiedReports },
+        { "@type": "PropertyValue", name: "Reported deaths, cause not confirmed as plague", value: STATUS.reportedDeaths },
+        { "@type": "PropertyValue", name: "People under medical observation (not confirmed cases)", value: STATUS.underObservation },
+      ],
+    },
+    {
       "@type": "FAQPage",
-      "@id": "https://plaguemap2026.com/#faq",
+      "@id": `${SITE_URL}/#faq`,
       mainEntity: faqs.map(faq => ({ "@type": "Question", name: faq.question, acceptedAnswer: { "@type": "Answer", text: faq.answer } })),
     },
   ],
@@ -117,14 +164,22 @@ export default function Home() {
       <div className="system-bar"><span>PUBLIC REPORT ARCHIVE // TERMINAL 026</span><span>CONNECTION ESTABLISHED</span></div>
       <nav className="terminal-nav" aria-label="Report sections"><a href="#reporting-title">[01] EVIDENCE</a><a href="#map-title">[02] MAP</a><a href="#updates-title">[03] DISPATCHES</a><a href="#faq-title">[04] FAQ</a></nav>
       <section className="hero" id="top">
-        <h1>PNEUMONIC PLAGUE<span className="title-secondary">SURVEILLANCE TERMINAL<span className="cursor" aria-hidden="true">█</span></span></h1>
+        <h1><span className="title-kicker">Plague Map 2026<span aria-hidden="true">{" //"}</span> </span>PNEUMONIC PLAGUE{" "}<span className="title-secondary">SURVEILLANCE TERMINAL<span className="cursor" aria-hidden="true">█</span></span></h1>
         <p className="dek">Public sources. Verified signals. Unresolved reports. Examine what’s confirmed and what remains unknown. Informational only—not medical advice.</p>
         <div className="stats" aria-label="Tracked reports and reported medical observation">
-          <div className="stat stat-deaths"><span>Confirmed deaths</span><strong>000</strong></div>
-          <div className="stat stat-confirmed"><span>Confirmed cases</span><strong>000</strong></div>
-          <div className="stat stat-suspected"><span>Unverified reports</span><strong>002</strong></div>
-          <div className="stat stat-observation"><span>Under observation <small>Reported Oct. 5</small></span><strong>189</strong></div>
+          <div className="stat stat-deaths"><span>Confirmed deaths</span><strong>{pad(STATUS.confirmedDeaths)}</strong></div>
+          <div className="stat stat-confirmed"><span>Confirmed cases</span><strong>{pad(STATUS.confirmedCases)}</strong></div>
+          <div className="stat stat-suspected"><span>Unverified reports</span><strong>{pad(STATUS.unverifiedReports)}</strong></div>
+          <div className="stat stat-observation"><span>Under observation <small>Reported <time dateTime={STATUS.observationReported.iso}>{STATUS.observationReported.short}</time></small></span><strong>{STATUS.underObservation}</strong></div>
         </div>
+      </section>
+      <section className="current-situation" aria-labelledby="situation-title">
+        <div className="section-head"><div><span className="kicker">00 / STATUS.NOW</span><h2 id="situation-title">Current situation</h2></div></div>
+        <p className="situation-lead">{STATUS_SUMMARY}</p>
+        <p className="situation-breakdown">{STATUS_BREAKDOWN} <strong>People under observation are not confirmed plague cases.</strong></p>
+        <div className="situation-answer"><h3>Is there a confirmed plague outbreak in Russia?</h3><p>{OUTBREAK_ANSWER}</p></div>
+        <dl className="status-readout" aria-label="Current status of the tracked investigation">{statusRows.map(row => <div key={row.label}><dt>{row.label}</dt><dd><span className="readout-value">{row.value}</span>{row.note && <small>{row.note}</small>}{row.source && <a href={row.source.url} target="_blank" rel="noreferrer">Source: {row.source.name} ↗</a>}</dd></div>)}</dl>
+        <p className="situation-sources">Based on the latest official statements and credible public reporting reviewed by Plague Map 2026. {DISCLAIMER} Each figure links to its source; the full evidence log and dispatches follow below.</p>
       </section>
       <section className="reporting-context" aria-labelledby="reporting-title">
         <div className="section-head"><div><span className="kicker">01 / EVIDENCE.LOG</span><h2 id="reporting-title">What the reporting tells us</h2></div></div>
@@ -143,14 +198,14 @@ export default function Home() {
           </div>
           <div className="map-card" aria-live="polite"><span className={`status ${active.tone}`}>{active.status}</span><h3>{active.name}</h3><small>{active.country}</small>
             <dl className="location-metrics" aria-label={`${active.name} incident data`}>{active.metrics.map(metric => <div key={metric.label}><dt>{metric.label}</dt><dd>{metric.value}<small>{metric.note}</small></dd></div>)}</dl>
-            <p className="incident-note">The suspected case and reported death refer to the same person. Observation does not mean infection; 189 is the reported number placed under monitoring, not a verified current total.</p>
-            <h4 className="incident-story-title">Incident report</h4><p>{active.detail}</p><div className="card-source"><a href={active.sourceUrl} target="_blank" rel="noreferrer">Source: {active.source} ↗</a><a href="https://www.cnbc.com/2026/10/05/russia-plague-suspected-case-irkutsk.html" target="_blank" rel="noreferrer">Observation: CNBC</a><a href="https://www.ecdc.europa.eu/en/news-events/ecdc-closely-monitoring-situation-following-case-pneumonia-unknown-origin-russia" target="_blank" rel="noreferrer">Secondary cases: ECDC</a><span>Evidence reviewed {active.updated} · 5:18 PM CT</span></div></div>
+            <p className="incident-note">The suspected case and reported death refer to the same person. Observation does not mean infection; {STATUS.underObservation} is the reported number placed under monitoring, not a verified current total.</p>
+            <h4 className="incident-story-title">Incident report</h4><p>{active.detail}</p><div className="card-source"><a href={active.sourceUrl} target="_blank" rel="noreferrer">Source: {active.source} ↗</a><a href={STATUS.observationReported.source.url} target="_blank" rel="noreferrer">Observation: {STATUS.observationReported.source.name}</a><a href={SOURCES.ecdc.url} target="_blank" rel="noreferrer">Secondary cases: {SOURCES.ecdc.name}</a><span>Evidence reviewed <time dateTime={EVIDENCE_REVIEWED.iso}>{EVIDENCE_REVIEWED.label}</time></span></div></div>
         </div>
         <p className="map-note">Tap a marker for details · Locations are approximate</p>
       </section>
       <section className="updates" aria-labelledby="updates-title">
         <div className="section-head stories-head"><div><span className="kicker">03 / INCOMING DISPATCHES</span><h2 id="updates-title">Latest updates</h2></div><span className="last-updated">Last updated <time dateTime={LAST_UPDATED.iso}>{LAST_UPDATED.label}</time></span></div>
-        <div className="story-list">{visibleStories.map((story) => <article className="story" key={story.url}><time className="story-date">{story.date}</time><div className="story-body"><div className="story-meta"><b>{story.source}</b><time>Reviewed {story.time}</time></div><h3>{story.title}</h3><p>{story.summary}</p><div className="authority-line">Authority reference: <a href={story.authorityUrl} target="_blank" rel="noreferrer">{story.authority} ↗</a></div><div className="story-footer"><div className="tags">{story.tags.map(tag => <span key={tag}>{tag}</span>)}</div><a href={story.url} target="_blank" rel="noreferrer">Read report <span aria-hidden="true">↗</span></a></div></div></article>)}</div>
+        <div className="story-list">{visibleStories.map((story) => <article className="story" key={story.url}><time className="story-date" dateTime={isoDate(story.date)}>{story.date}</time><div className="story-body"><div className="story-meta"><b>{story.source}</b><span className="story-reviewed">Reviewed {story.time}</span></div><h3>{story.title}</h3><p>{story.summary}</p><div className="authority-line">Authority reference: <a href={story.authorityUrl} target="_blank" rel="noreferrer">{story.authority} ↗</a></div><div className="story-footer"><div className="tags">{story.tags.map(tag => <span key={tag}>{tag}</span>)}</div><a href={story.url} target="_blank" rel="noreferrer">Read report <span aria-hidden="true">↗</span></a></div></div></article>)}</div>
         {stories.length > 5 && <button type="button" className="see-more" aria-expanded={showAllStories} onClick={() => setShowAllStories(!showAllStories)}>{showAllStories ? "Show fewer" : `See more (${stories.length - 5} older)`}</button>}
       </section>
       <section className="field-guide" aria-labelledby="faq-title">

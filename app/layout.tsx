@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { SITE_URL } from "./tracker-data";
 
 const GA_MEASUREMENT_ID = "G-NPVV24G1MF";
 
-const SITE_URL = "https://plaguemap2026.com";
-const SITE_TITLE = "Pneumonic Plague Tracker: Irkutsk, Russia Case Map";
-const SITE_DESCRIPTION = "Is pneumonic plague confirmed in Russia? Track the suspected Irkutsk case: deaths, unverified reports, people under observation, and WHO/CDC sourcing.";
-const SOCIAL_DESCRIPTION = "Confirmed vs. unverified plague reports from Irkutsk, Russia, mapped with sources.";
+const SITE_TITLE = "Plague Map 2026 — Russia Plague Investigation Tracker";
+const SITE_DESCRIPTION = "Independent tracker of the suspected plague investigation in Irkutsk, Russia. Separates confirmed cases from unverified reports, citing public sources.";
+const SOCIAL_DESCRIPTION = "Confirmed vs. unverified plague reports from the Irkutsk, Russia, investigation, mapped with public sources.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
