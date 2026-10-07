@@ -3,27 +3,58 @@ import "./globals.css";
 
 const GA_MEASUREMENT_ID = "G-NPVV24G1MF";
 
+const SITE_URL = "https://plaguemap2026.com";
+const SITE_TITLE = "Pneumonic Plague Tracker: Irkutsk, Russia Case Map";
+const SITE_DESCRIPTION = "Is pneumonic plague confirmed in Russia? Track the suspected Irkutsk case: deaths, unverified reports, people under observation, and WHO/CDC sourcing.";
+const SOCIAL_DESCRIPTION = "Confirmed vs. unverified plague reports from Irkutsk, Russia, mapped with sources.";
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://plaguemap2026.com"),
-  title: "Pneumonic Plague",
-  description: "A clear, source-driven view of confirmed and suspected plague reports worldwide.",
+  metadataBase: new URL(SITE_URL),
+  title: { default: SITE_TITLE, template: "%s | Plague Map 2026" },
+  description: SITE_DESCRIPTION,
+  applicationName: "Plague Map 2026",
   alternates: { canonical: "/" },
+  robots: { index: true, follow: true, "max-snippet": -1, "max-image-preview": "large" },
   openGraph: {
-    title: "Pneumonic Plague",
-    description: "Confirmed and suspected plague reports—mapped clearly.",
+    title: SITE_TITLE,
+    description: SOCIAL_DESCRIPTION,
     url: "/",
     siteName: "Plague Map 2026",
     type: "website",
+    locale: "en_US",
     images: [{ url: "/og.png", width: 1734, height: 907, alt: "Plague Map 2026 world report map" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Pneumonic Plague",
-    description: "Confirmed and suspected plague reports—mapped clearly.",
+    title: SITE_TITLE,
+    description: SOCIAL_DESCRIPTION,
     images: ["/og.png"],
   },
   icons: { icon: "/favicon.svg" },
 };
+
+const siteSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://hoursand.co/#organization",
+      name: "Hours & Co.",
+      url: "https://hoursand.co/",
+      email: "hoursandco.studio@gmail.com",
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${SITE_URL}/#website`,
+      name: "Plague Map 2026",
+      url: `${SITE_URL}/`,
+      description: SITE_DESCRIPTION,
+      inLanguage: "en",
+      publisher: { "@id": "https://hoursand.co/#organization" },
+    },
+  ],
+};
+
 export default function RootLayout({children}:Readonly<{children:React.ReactNode}>) {
   return (
     <html lang="en">
@@ -44,6 +75,10 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', '${GA_MEASUREMENT_ID}');`,
           }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(siteSchema) }}
         />
       </head>
       <body>{children}</body>

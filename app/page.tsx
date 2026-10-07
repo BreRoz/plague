@@ -49,6 +49,38 @@ const reportingColumns = [
   ] },
 ];
 
+const LAST_UPDATED = { label: "Oct. 7, 2026", iso: "2026-10-07" };
+
+const faqs = [
+  { question: "Has pneumonic plague been confirmed in Russia?", answer: "No. As of Oct. 7, 2026, plague has not been confirmed in the Irkutsk investigation. Moscow told WHO no plague case has been registered in the Irkutsk region, and Russia has not confirmed an official cause of death for the 28-year-old anti-plague institute employee who died Oct. 2 of pneumonia of unknown cause. This tracker lists it as a suspected case." },
+  { question: "Is there a second plague case in Russia?", answer: "Not a confirmed one. WHO has requested information about media reports of a second institute employee with pneumonia of undetermined cause, and a local outlet reported a second death at an Irkutsk medical facility. Neither report has been verified, and no second plague case has been confirmed." },
+  { question: "How many people are under medical observation?", answer: "189 people were reported under medical observation as of Oct. 5. Observation does not mean infection. Russia reported no plague among the deceased worker’s contacts; testing found two COVID-19 and two rhinovirus infections." },
+  { question: "What is WHO’s risk assessment?", answer: "WHO’s initial assessment rates the risk as moderate to low in Irkutsk, low for Russia as a whole, and very low for the WHO European region. CDC says there is no indication of a broader threat to the United States." },
+  { question: "Is pneumonic plague contagious?", answer: "Pneumonic plague affects the lungs and is the form of plague that can spread between people through respiratory particles during prolonged close, direct contact. Experts describe it as far less contagious than COVID-19 or flu. Bubonic plague does not ordinarily spread person to person." },
+  { question: "Is plague treatable?", answer: "Yes. Plague is treatable with antibiotics, which can also prevent illness after exposure. Treatment works best when started within 24 hours of symptoms, so anyone with a possible exposure and symptoms should contact a healthcare professional promptly." },
+];
+
+const pageSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://plaguemap2026.com/#webpage",
+      url: "https://plaguemap2026.com/",
+      name: "Pneumonic Plague Tracker: Irkutsk, Russia Case Map",
+      isPartOf: { "@id": "https://plaguemap2026.com/#website" },
+      about: { "@type": "MedicalCondition", name: "Pneumonic plague", alternateName: "Yersinia pestis infection" },
+      dateModified: LAST_UPDATED.iso,
+      inLanguage: "en",
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://plaguemap2026.com/#faq",
+      mainEntity: faqs.map(faq => ({ "@type": "Question", name: faq.question, acceptedAnswer: { "@type": "Answer", text: faq.answer } })),
+    },
+  ],
+};
+
 function reportingSourceUrl(source: string) {
   if (source === "WHO") return "https://www.who.int/news-room/fact-sheets/detail/plague";
   if (source === "UN News") return "https://news.un.org/en/story/2026/10/1168533";
@@ -69,12 +101,13 @@ export default function Home() {
   }
   return (
     <main>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }} />
       <header className="site-header">
         <a className="brand" href="#top" aria-label="Plague Map 2026 home"><span className="brand-mark" aria-hidden="true">&gt;_</span><span>PLAGUE_MAP <b>2026</b></span></a>
         <button className="share" onClick={shareTracker} type="button"><span aria-hidden="true">↗</span> {shared ? "Link copied" : "Share tracker"}</button>
       </header>
       <div className="system-bar"><span>PUBLIC REPORT ARCHIVE // TERMINAL 026</span><span>CONNECTION ESTABLISHED</span></div>
-      <nav className="terminal-nav" aria-label="Report sections"><a href="#reporting-title">[01] EVIDENCE</a><a href="#map-title">[02] MAP</a><a href="#updates-title">[03] DISPATCHES</a><a href="#guide-title">[04] HELP</a></nav>
+      <nav className="terminal-nav" aria-label="Report sections"><a href="#reporting-title">[01] EVIDENCE</a><a href="#map-title">[02] MAP</a><a href="#updates-title">[03] DISPATCHES</a><a href="#guide-title">[04] HELP</a><a href="#faq-title">[05] FAQ</a></nav>
       <section className="hero" id="top">
         <h1>PNEUMONIC PLAGUE<span className="title-secondary">SURVEILLANCE TERMINAL<span className="cursor" aria-hidden="true">█</span></span></h1>
         <p className="dek">Public sources. Verified signals. Unresolved reports. Examine what’s confirmed and what remains unknown. Informational only—not medical advice.</p>
@@ -87,7 +120,7 @@ export default function Home() {
       </section>
       <section className="reporting-context" aria-labelledby="reporting-title">
         <div className="section-head"><div><span className="kicker">01 / EVIDENCE.LOG</span><h2 id="reporting-title">What the reporting tells us</h2></div></div>
-        <p className="reporting-intro">The investigation is unresolved. Here are the concerns and reassuring findings reported so far.</p>
+        <p className="reporting-intro">As of {LAST_UPDATED.label}, no plague case has been confirmed in Russia’s Irkutsk region. A 28-year-old anti-plague institute employee died Oct. 2 of pneumonia of unknown cause, a reported second illness is unverified, and WHO rates the wider risk as low to very low. Here are the concerns and reassuring findings reported so far.</p>
         <div className="reporting-columns">{reportingColumns.map(column => <article className={`reporting-column ${column.tone}`} key={column.title}>
           <h3>{column.title}</h3>
           <ul>{column.items.map(item => <li key={item.title}><h4>{item.title}</h4><p>{item.text}</p><div className="reporting-sources">Sources: {item.sources.map((source, index) => <span key={source}>{index > 0 ? " · " : ""}<a href={reportingSourceUrl(source)} target="_blank" rel="noreferrer">{source === "Associated Press" ? "AP" : source} ↗</a></span>)}</div></li>)}</ul>
@@ -97,7 +130,7 @@ export default function Home() {
         <div className="section-head"><div><span className="kicker">02 / GEOLOCATION.SYS</span><h2 id="map-title">Case map</h2></div><div className="legend"><span><i className="confirmed-key" /> Confirmed</span><span><i className="suspected-key" /> Unverified</span></div></div>
         <div className="map-frame"><div className="window-bar"><span>WORLD_MAP.SYS</span><span aria-hidden="true">[ − ][ □ ][ × ]</span></div>
           <div className="map-visual">
-            <img src="/world-map.svg" alt="World map showing reported plague locations" />
+            <img src="/world-map.svg" alt="World map with markers for reported plague locations, including the suspected pneumonic plague case in Irkutsk, Russia" />
             {locations.map((location) => <button key={location.id} className={`map-pin ${location.tone} ${active.id === location.id ? "active" : ""}`} style={{left:location.x,top:location.y}} onClick={() => setActive(location)} aria-label={`${location.name}: ${location.status}`} type="button"><span /></button>)}
           </div>
           <div className="map-card" aria-live="polite"><span className={`status ${active.tone}`}>{active.status}</span><h3>{active.name}</h3><small>{active.country}</small>
@@ -108,7 +141,7 @@ export default function Home() {
         <p className="map-note">Tap a marker for details · Locations are approximate</p>
       </section>
       <section className="updates" aria-labelledby="updates-title">
-        <div className="section-head stories-head"><div><span className="kicker">03 / INCOMING DISPATCHES</span><h2 id="updates-title">Latest updates</h2></div><span className="last-updated">Last updated Oct. 7, 2026</span></div>
+        <div className="section-head stories-head"><div><span className="kicker">03 / INCOMING DISPATCHES</span><h2 id="updates-title">Latest updates</h2></div><span className="last-updated">Last updated <time dateTime={LAST_UPDATED.iso}>{LAST_UPDATED.label}</time></span></div>
         <div className="story-list">{visibleStories.map((story) => <article className="story" key={story.url}><time className="story-date">{story.date}</time><div className="story-body"><div className="story-meta"><b>{story.source}</b><time>Reviewed {story.time}</time></div><h3>{story.title}</h3><p>{story.summary}</p><div className="authority-line">Authority reference: <a href={story.authorityUrl} target="_blank" rel="noreferrer">{story.authority} ↗</a></div><div className="story-footer"><div className="tags">{story.tags.map(tag => <span key={tag}>{tag}</span>)}</div><a href={story.url} target="_blank" rel="noreferrer">Read report <span aria-hidden="true">↗</span></a></div></div></article>)}</div>
         {stories.length > 5 && <button type="button" className="see-more" aria-expanded={showAllStories} onClick={() => setShowAllStories(!showAllStories)}>{showAllStories ? "Show fewer" : `See more (${stories.length - 5} older)`}</button>}
       </section>
@@ -132,6 +165,13 @@ export default function Home() {
             <div className="drawer-copy"><p>This project is a news and public-information index, not an official surveillance system. Reporting can be delayed, incomplete, corrected, or contradicted as laboratory results and investigations develop. A suspected report may later be confirmed, ruled out, or remain unresolved.</p><p>We distinguish publication dates from event dates where the source makes that possible, avoid guessing missing facts, and update labels when better evidence appears. If you find a factual error or a stronger primary source, send it to <a href="mailto:hoursandco.studio@gmail.com">hoursandco.studio@gmail.com</a> with the relevant link.</p></div>
           </details>
         </div>
+      </section>
+      <section className="field-guide" aria-labelledby="faq-title">
+        <div className="section-head guide-head"><div><span className="kicker">05 / FAQ.TXT</span><h2 id="faq-title">Frequently asked questions</h2></div><p>Short answers based on the reporting and health guidance cited above.</p></div>
+        <div className="drawers">{faqs.map((faq, index) => <details key={faq.question}>
+          <summary><span>{String(index + 1).padStart(2, "0")}</span> {faq.question} <i>+</i></summary>
+          <div className="drawer-copy"><p>{faq.answer}</p></div>
+        </details>)}</div>
       </section>
       <aside className="context"><span className="context-icon" aria-hidden="true">i</span><div><h2>Keep this in context</h2><p>Plague is rare and treatable with antibiotics when caught early. This tracker summarizes public reporting and is not a public-health authority.</p></div></aside>
       <footer><span>Plague Map 2026</span><nav aria-label="Site information"><a href="/about">About</a><a href="/contact">Contact</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></nav><p>© 2026 <a href="https://hoursand.co/" target="_blank" rel="noreferrer">Hours &amp; Co.</a></p><a href="#top">Back to top ↑</a></footer>

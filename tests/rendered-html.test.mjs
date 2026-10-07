@@ -28,7 +28,7 @@ test("server-renders the plague tracker and new article dispatches", async () =>
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
 
   const html = await response.text();
-  assert.match(html, /<title>Pneumonic Plague<\/title>/i);
+  assert.match(html, /<title>Pneumonic Plague Tracker: Irkutsk, Russia Case Map<\/title>/i);
   assert.match(html, /PNEUMONIC PLAGUE/);
   assert.match(html, /WHO investigates reports of a second possible case/);
   assert.match(html, /Trump says Putin call is scheduled; Kremlin says nothing arranged/);
