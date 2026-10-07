@@ -31,7 +31,8 @@ test("server-renders the plague tracker and new article dispatches", async () =>
   assert.match(html, /<title>Pneumonic Plague<\/title>/i);
   assert.match(html, /PNEUMONIC PLAGUE/);
   assert.match(html, /WHO investigates reports of a second possible case/);
-  assert.match(html, /Rubio calls on Russia to share more information/);
+  assert.match(html, /Trump says Putin call is scheduled; Kremlin says nothing arranged/);
+  assert.match(html, /Experts weigh in on whether the suspected case could lead to an outbreak/);
   assert.match(html, /WHO seeks details about report of a second illness/);
   assert.match(html, /https:\/\/www\.the-independent\.com\/news\/world\/europe\/russia-plague-second-case-lab-siberia-b3062609\.html/);
   assert.match(html, /https:\/\/thehill\.com\/policy\/healthcare\/6133282-world-health-organization-russia-plague-lab-death\//);
