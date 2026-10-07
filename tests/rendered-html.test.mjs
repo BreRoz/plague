@@ -45,7 +45,6 @@ test("keeps the additional illness explicitly unverified at one map location", a
   assert.match(html, /Unverified reports[\s\S]*?002/);
   assert.match(html, /Second illness unverified/);
   assert.match(html, /no second plague case has been confirmed/i);
-  assert.match(html, /WHO is seeking details about an unverified report of a second employee with pneumonia/);
   assert.equal((html.match(/class="map-pin /g) ?? []).length, 1);
   assert.doesNotMatch(html, /Your site is taking shape|react-loading-skeleton|codex-preview/);
 });

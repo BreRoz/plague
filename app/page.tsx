@@ -81,8 +81,6 @@ export default function Home() {
           <div className="stat stat-suspected"><span>Unverified reports</span><strong>002</strong></div>
           <div className="stat stat-observation"><span>Under observation <small>Reported Oct. 5</small></span><strong>189</strong></div>
         </div>
-        <p className="stats-note">Reviewed Oct. 7, 2026 · No officially confirmed cases currently tracked · One reported death remains unexplained; WHO is seeking details about an unverified report of a second employee with pneumonia · WHO assesses risk for the European region as very low (AP)</p>
-        <p className="observation-note">Under observation: 189 people reportedly placed under medical monitoring after possible contact in the Irkutsk investigation. <a href="https://www.cnbc.com/2026/10/05/russia-plague-suspected-case-irkutsk.html" target="_blank" rel="noreferrer">Source: CNBC, Oct. 5, 2026</a>. This is the reported count placed under observation, not a verified current total or a count of infected people.</p>
       </section>
       <section className="reporting-context" aria-labelledby="reporting-title">
         <div className="section-head"><div><span className="kicker">01 / EVIDENCE.LOG</span><h2 id="reporting-title">What the reporting tells us</h2></div></div>
@@ -91,7 +89,6 @@ export default function Home() {
           <h3>{column.title}</h3>
           <ul>{column.items.map(item => <li key={item.title}><h4>{item.title}</h4><p>{item.text}</p><div className="reporting-sources">Sources: {item.sources.map((source, index) => <span key={source}>{index > 0 ? " · " : ""}<a href={reportingSourceUrl(source)} target="_blank" rel="noreferrer">{source === "Associated Press" ? "AP" : source} ↗</a></span>)}</div></li>)}</ul>
         </article>)}</div>
-        <p className="reporting-note">People under observation are not confirmed cases. Claims about an engineered or antibiotic-resistant strain remain unverified. <a href={stories.find(story => story.source === "Fox News")!.url} target="_blank" rel="noreferrer">Source: Fox News ↗</a></p>
       </section>
       <section className="map-section" aria-labelledby="map-title">
         <div className="section-head"><div><span className="kicker">02 / GEOLOCATION.SYS</span><h2 id="map-title">Case map</h2></div><div className="legend"><span><i className="confirmed-key" /> Confirmed</span><span><i className="suspected-key" /> Unverified</span></div></div>
