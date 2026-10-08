@@ -31,10 +31,11 @@ test("server-renders the plague tracker and new article dispatches", async () =>
   assert.match(html, /<title>Plague Map 2026 — Russia Plague Investigation Tracker<\/title>/i);
   assert.match(html, /PNEUMONIC PLAGUE/);
   assert.match(html, /Russia dismisses second-case reports; WHO asks Moscow to respond/);
+  assert.match(html, /Russia says contact checks after the lab worker’s death are complete/);
   assert.match(html, /What to know about pneumonic plague after the Irkutsk death/);
   assert.match(html, /Trump says Putin call is scheduled; Kremlin says nothing arranged/);
   assert.match(html, /Experts weigh in on whether the suspected case could lead to an outbreak/);
-  assert.match(html, /Russia keeps a tight lid on suspected pneumonic plague case/);
+  assert.match(html, /russia-says-reports-second-case-linked-siberian-plague-lab-are-false-2026-10-08/);
   assert.match(html, /https:\/\/www\.aljazeera\.com\/news\/2026\/10\/8\/russia-dismisses-reports-of-second-plague-case-as-false-information/);
   assert.match(html, /https:\/\/www\.nbcnews\.com\/health\/health-news\/plague-suspected-russia-lab-pneumonic-siberia-symptoms-treatment-rcna601589/);
 });
