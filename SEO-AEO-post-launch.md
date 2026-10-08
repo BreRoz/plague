@@ -29,9 +29,11 @@ Run this once the site is live. It covers what files alone cannot verify — and
   10. What did the CDC say about the Russian plague case?
   11. Did Trump talk to Putin about the plague case?
   12. Is there a U.S. Embassy health alert for Irkutsk?
-  13. Difference between bubonic and pneumonic plague
-  14. How does plague spread?
-  15. Where is the plague outbreak in 2026?
+  13. Is the Russian plague case a bioweapon?
+  14. Is the U.S. screening travelers from Irkutsk?
+  15. Difference between bubonic and pneumonic plague
+  16. How does plague spread?
+  17. Where is the plague outbreak in 2026?
 
   For each one, record: cited (Y/N), the URL cited, whether the facts match the tracker as of that date, and which competitor was cited instead.
 
