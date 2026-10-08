@@ -162,7 +162,17 @@ export default function Home() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }} />
       <header className="site-header">
         <a className="brand" href="#top" aria-label="Plague Map 2026 home"><span className="brand-mark" aria-hidden="true">&gt;_</span><span>PLAGUE_MAP <b>2026</b></span></a>
-        <button className="share" onClick={shareTracker} type="button"><span aria-hidden="true">↗</span> {shared ? "Link copied" : "Share tracker"}</button>
+        <div className="header-actions">
+          <button className="share" onClick={shareTracker} type="button"><span aria-hidden="true">↗</span> {shared ? "Link copied" : "Share tracker"}</button>
+          <details className="tip">
+            <summary className="share">Tip the builder</summary>
+            <div className="tip-menu">
+              <a href="https://venmo.com/breroz" target="_blank" rel="noopener noreferrer">Venmo</a>
+              <a href="https://www.paypal.com/paypalme/breroz" target="_blank" rel="noopener noreferrer">PayPal</a>
+              <a href="https://buymeacoffee.com/BreRoz" target="_blank" rel="noopener noreferrer">Buy Me a Coffee</a>
+            </div>
+          </details>
+        </div>
       </header>
       <div className="system-bar"><span>PUBLIC REPORT ARCHIVE // TERMINAL 026</span><span>CONNECTION ESTABLISHED</span></div>
       <nav className="terminal-nav" aria-label="Report sections"><a href="#reporting-title">[01] EVIDENCE</a><a href="#map-title">[02] MAP</a><a href="#updates-title">[03] DISPATCHES</a><a href="#faq-title">[04] FAQ</a></nav>
