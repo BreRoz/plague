@@ -30,11 +30,11 @@ test("server-renders the plague tracker and new article dispatches", async () =>
   const html = await response.text();
   assert.match(html, /<title>Plague Map 2026 — Russia Plague Investigation Tracker<\/title>/i);
   assert.match(html, /PNEUMONIC PLAGUE/);
+  assert.match(html, /Global health scientist argues Russian secrecy undermines pandemic preparedness/);
   assert.match(html, /Former CDC director doubts plague killed the Irkutsk researcher/);
   assert.match(html, /Hong Kong adds temperature checks for arrivals from Russia/);
   assert.match(html, /Irkutsk residents stay calm as questions over the death persist/);
   assert.match(html, /Chinese border city urges plague precautions, rates local risk low/);
-  assert.match(html, /Inner Mongolia border city issues a plague risk alert over the Irkutsk death/);
   assert.match(html, /russia-says-reports-second-case-linked-siberian-plague-lab-are-false-2026-10-08/);
   assert.match(html, /https:\/\/www\.aljazeera\.com\/news\/2026\/10\/8\/russia-dismisses-reports-of-second-plague-case-as-false-information/);
   assert.match(html, /https:\/\/www\.nbcnews\.com\/health\/health-news\/plague-suspected-russia-lab-pneumonic-siberia-symptoms-treatment-rcna601589/);
