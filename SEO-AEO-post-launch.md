@@ -17,6 +17,7 @@ Run this once the site is live. It covers what files alone cannot verify — and
   - is pneumonic plague contagious
   - WHO Russia plague no case registered / cause of death unknown
   - Hong Kong Russia arrival checks plague / Hulunbuir plague alert / Redfield plague Russia
+  - Taiwan plague rumors China / Cho Jung-tai plague / Sichuan plague rumor
 - Known competitors (for the same queries): WHO Disease Outbreak News, CDC plague pages, ECDC weekly threats report, AP / Reuters / NBC / CNBC live coverage, Wikipedia (if an article on the incident exists), BNO News and similar outbreak trackers
 - Target AI questions to run in ChatGPT, Perplexity, Google AI Overview / Gemini and Claude:
   1. Has pneumonic plague been confirmed in Russia?
@@ -35,6 +36,7 @@ Run this once the site is live. It covers what files alone cannot verify — and
   14. Does former CDC director Redfield think it was plague?
   13. Is the Russian plague case a bioweapon?
   14. Is the U.S. screening travelers from Irkutsk?
+  15. Has plague spread to China, and is Taiwan screening for it?
   15. Difference between bubonic and pneumonic plague
   16. How does plague spread?
   17. Where is the plague outbreak in 2026?
