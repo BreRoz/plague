@@ -6,10 +6,10 @@
 export const SITE_URL = "https://plaguemap2026.com";
 
 /** When the tracker's data last changed (drives "Last updated", dateModified and the sitemap). */
-export const LAST_UPDATED = { label: "Oct. 13, 2026", iso: "2026-10-13" };
+export const LAST_UPDATED = { label: "Oct. 14, 2026", iso: "2026-10-14" };
 
 /** When the evidence behind the counts was last reviewed. Add a time (e.g. "2026-10-08T09:15-05:00") when known. */
-export const EVIDENCE_REVIEWED = { label: "Oct. 13, 2026", iso: "2026-10-13T09:06-05:00" };
+export const EVIDENCE_REVIEWED = { label: "Oct. 14, 2026", iso: "2026-10-14T09:17-05:00" };
 
 export const SOURCES = {
   ap: { name: "Associated Press", url: "https://apnews.com/article/5aa82b8bc3d8300c551cd0e1bf91e32c" },

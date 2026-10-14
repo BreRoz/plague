@@ -30,11 +30,11 @@ test("server-renders the plague tracker and new article dispatches", async () =>
   const html = await response.text();
   assert.match(html, /<title>Plague Map 2026 — Russia Plague Investigation Tracker<\/title>/i);
   assert.match(html, /PNEUMONIC PLAGUE/);
+  assert.match(html, /Hong Kong, Macau, Taiwan and South Korea weigh or add measures over the Irkutsk death/);
+  assert.match(html, /Nigerian outlet repeats WHO finding of no evidence of ongoing transmission/);
   assert.match(html, /Taiwan monitors online rumors of plague spread in China and asks WHO to verify the death/);
   assert.match(html, /Chinese physician and border-city advisory say a plague outbreak is unlikely/);
   assert.match(html, /Global health scientist argues Russian secrecy undermines pandemic preparedness/);
-  assert.match(html, /Former CDC director doubts plague killed the Irkutsk researcher/);
-  assert.match(html, /Hong Kong adds temperature checks for arrivals from Russia/);
   assert.match(html, /russia-says-reports-second-case-linked-siberian-plague-lab-are-false-2026-10-08/);
   assert.match(html, /https:\/\/www\.aljazeera\.com\/news\/2026\/10\/8\/russia-dismisses-reports-of-second-plague-case-as-false-information/);
   assert.match(html, /https:\/\/www\.nbcnews\.com\/health\/health-news\/plague-suspected-russia-lab-pneumonic-siberia-symptoms-treatment-rcna601589/);
@@ -59,14 +59,14 @@ test("answers the current status in crawlable HTML from one data source", async 
   assert.equal((html.match(/<h1[\s>]/g) ?? []).length, 1);
   assert.match(html, /<h1><span class="title-kicker">Plague Map 2026/);
   assert.match(html, /<h2 id="situation-title">Current situation<\/h2>/);
-  assert.match(text, /As of Oct\. 13, 2026, no confirmed plague cases have been reported in the Irkutsk region, Russia, investigation/);
+  assert.match(text, /As of Oct\. 14, 2026, no confirmed plague cases have been reported in the Irkutsk region, Russia, investigation/);
   assert.match(text, /2 unverified illness reports, 1 reported death whose cause has not been confirmed as plague, and 189 people reported as under medical observation/);
   assert.match(text, /People under observation are not confirmed plague cases\./);
   assert.match(text, /No confirmed plague outbreak has been established in the sources reviewed by this tracker/);
   assert.match(text, /not a government agency or an official public-health surveillance system/);
   assert.match(html, /<dt>Confirmed plague cases<\/dt><dd><span class="readout-value">0<\/span>/);
   assert.match(html, /<dt>Confirmed plague deaths<\/dt><dd><span class="readout-value">0<\/span>/);
-  assert.match(html, /<time dateTime="2026-10-13">Oct\. 13, 2026<\/time>/i);
+  assert.match(html, /<time dateTime="2026-10-14">Oct\. 14, 2026<\/time>/i);
   assert.match(html, /<link rel="canonical" href="https:\/\/plaguemap2026\.com\/?"/);
 
   const schemas = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map(m => JSON.parse(m[1]));

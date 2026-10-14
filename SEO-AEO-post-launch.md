@@ -18,6 +18,7 @@ Run this once the site is live. It covers what files alone cannot verify — and
   - WHO Russia plague no case registered / cause of death unknown
   - Hong Kong Russia arrival checks plague / Hulunbuir plague alert / Redfield plague Russia
   - Taiwan plague rumors China / Cho Jung-tai plague / Sichuan plague rumor
+  - Macau health declaration Russia / South Korea plague risk Russia / Hong Kong CHP Irkutsk
 - Known competitors (for the same queries): WHO Disease Outbreak News, CDC plague pages, ECDC weekly threats report, AP / Reuters / NBC / CNBC live coverage, Wikipedia (if an article on the incident exists), BNO News and similar outbreak trackers
 - Target AI questions to run in ChatGPT, Perplexity, Google AI Overview / Gemini and Claude:
   1. Has pneumonic plague been confirmed in Russia?
